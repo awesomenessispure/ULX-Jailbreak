@@ -50,7 +50,7 @@ local function voteDemoteDone2( t, target, time, ply, reason )
 	end
 
 	if shouldDemote then
-			target:Kill()
+			target:KillSilent()
 			target:SetTeam(3)
 	end
 	
@@ -145,7 +145,7 @@ function ulx.makeprisoner( calling_ply, target_plys )
 		elseif v:IsFrozen() then
 			ULib.tsayError( calling_ply, v:Nick() .. " is frozen!", true )
 		else
-			v:Kill()
+			v:KillSilent()
 			v:SetTeam(3)
 			table.insert( affected_plys, v )			
 		end
@@ -172,7 +172,7 @@ function ulx.makeguard( calling_ply, target_plys )
 		elseif v:IsFrozen() then
 			ULib.tsayError( calling_ply, v:Nick() .. " is frozen!", true )
 		else
-			v:Kill()
+			v:KillSilent()
 			v:SetTeam(4)
 			table.insert( affected_plys, v )			
 		end
