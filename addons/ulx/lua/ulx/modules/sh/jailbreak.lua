@@ -1,19 +1,35 @@
 -- Script made by Classified
 -- Gamemode by Chessnut.
+print("ULX Jailbreak is loading")
+
+local versioncheck = "";
+local CurrentVersion = "1.2b"
+
+http.Fetch( "https://raw.githubusercontent.com/TheClassified/ULX-Jailbreak/master/versioncheck.txt",
+	function( body, len, headers, code )
+		versioncheck = body;
+		if versioncheck == CurrentVersion then
+			
+		else
+			if CLIENT then return end
+				print("You have an outdated version of ULX Jailbreak: https://github.com/TheClassified/ULX-Jailbreak")
+		end
+	end,
+	function( error )
+		print("COULD NOT FETCH VERSION OF JAILBREAK ULX")
+	end
+ );
 
 
 local CATEGORY_NAME = "Jailbreak"
 
-local versionNumber = "1.2a"
-
 local WardenModel = Model("models/player/combine_super_soldier.mdl");
 local GuardModels = {
-    Model("models/player/police.mdl"),
+	Model("models/player/police.mdl"),
 	Model("models/player/combine_soldier.mdl"),
 	Model("models/player/combine_soldier_prisonguard.mdl")
 };
 
-print("ULX Jailbreak by Classified Version("..versionNumber..") is loading")
 
 --------------------------- Vote Demote -------------------------
 
@@ -34,7 +50,7 @@ local function voteDemoteDone2( t, target, time, ply, reason )
 	end
 
 	if shouldDemote then
-			target:KillSilent()
+			target:Kill()
 			target:SetTeam(3)
 	end
 	
@@ -129,7 +145,7 @@ function ulx.makeprisoner( calling_ply, target_plys )
 		elseif v:IsFrozen() then
 			ULib.tsayError( calling_ply, v:Nick() .. " is frozen!", true )
 		else
-			v:KillSilent()
+			v:Kill()
 			v:SetTeam(3)
 			table.insert( affected_plys, v )			
 		end
@@ -156,7 +172,7 @@ function ulx.makeguard( calling_ply, target_plys )
 		elseif v:IsFrozen() then
 			ULib.tsayError( calling_ply, v:Nick() .. " is frozen!", true )
 		else
-			v:KillSilent()
+			v:Kill()
 			v:SetTeam(4)
 			table.insert( affected_plys, v )			
 		end
@@ -236,6 +252,7 @@ function ulx.roundend( calling_ply )
 			number = "NOW!"
 		end
 		ULib.csay( _, "ROUND ENDS ".. tostring(number) )
+		print(tostring(number))
 	end)
 			GAMEMODE:EndRound()
 
@@ -246,4 +263,5 @@ roundend:defaultAccess( ULib.ACCESS_ADMIN )
 roundend:help( "Restart the round/End the current round." )
 
 
-print("ULX Jailbreak by Classified Version("..versionNumber..") has finished loading")
+
+print("ULX Jailbreak has finished loading")
