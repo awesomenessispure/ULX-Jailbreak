@@ -2,7 +2,7 @@
 -- Gamemode by Chessnut.
 
 
-
+local CATEGORY_NAME = "Jailbreak"
 local versioncheck = "";
 local CurrentVersion = "1.2.5"
 print("ULX Jailbreak by Classified Version("..CurrentVersion..") is loading")
