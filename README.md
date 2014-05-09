@@ -43,6 +43,9 @@ Will demote the current warden and set the targeted's players armor to 25, and p
 
 Will end the current round. (Can work as a round restart.)
 
+!removefromqueue
+
+Will remove the targeted player from the warden queue.
 
 NOTICE
 =============
