@@ -4,7 +4,23 @@
 
 local CATEGORY_NAME = "Jailbreak"
 
-local versionNumber = "1.2a"
+local versioncheck = "";
+local CurrentVersion = "1.2.5"
+
+http.Fetch( "https://raw.githubusercontent.com/TheClassified/ULX-Jailbreak/master/versioncheck.txt",
+	function( body, len, headers, code )
+		versioncheck = body;
+		if versioncheck == CurrentVersion then
+
+		else
+			//if CLIENT then return end
+				print("This server has an outdated version of ULX Jailbreak by Classified: https://github.com/TheClassified/ULX-Jailbreak")
+		end
+	end,
+	function( error )
+		print("COULD NOT FETCH VERSION OF JAILBREAK ULX")
+	end
+ );
 
 local WardenModel = Model("models/player/combine_super_soldier.mdl");
 local GuardModels = {
@@ -13,7 +29,7 @@ local GuardModels = {
 	Model("models/player/combine_soldier_prisonguard.mdl")
 };
 
-print("ULX Jailbreak by Classified Version("..versionNumber..") is loading")
+print("ULX Jailbreak by Classified Version("..CurrentVersion..") is loading")
 
 --------------------------- Vote Demote -------------------------
 
@@ -227,6 +243,31 @@ demotewarden:addParam{ type=ULib.cmds.PlayersArg }
 demotewarden:defaultAccess( ULib.ACCESS_ADMIN )
 demotewarden:help( "Demote warden of the target(s)." )
 
+----------------------- Remove from Warden Queue ------------------------------
+function ulx.removefromqueue( calling_ply, target_plys )
+	local affected_plys = {}
+
+	for i=1, #target_plys do
+		local v = target_plys[ i ]
+
+		if ulx.getExclusive( v, calling_ply ) then
+			ULib.tsayError( calling_ply, ulx.getExclusive( v, calling_ply ), true )
+		elseif v:Team() == 1 or v:Team() == 3 then
+			ULib.tsayError( calling_ply, v:Nick() .. " is a prisoner!", true )
+		else
+			JB_WARDEN_QUEUE[v] = nil;
+			GAMEMODE:Notify("You have been forced out of the warden queue", v);
+			table.insert( affected_plys, v )
+		end
+	end
+
+	ulx.fancyLogAdmin( calling_ply, "#A removed #T from the warden queue", affected_plys )
+end
+local removefromqueue = ulx.command( CATEGORY_NAME, "ulx removefromqueue", ulx.removefromqueue, "!removefromqueue" )
+removefromqueue:addParam{ type=ULib.cmds.PlayersArg }
+removefromqueue:defaultAccess( ULib.ACCESS_ADMIN )
+removefromqueue:help( "Removes target(s) from the warden queue." )
+
 ------------------------------ ROUND END ------------------------------
 local number = 5
 function ulx.roundend( calling_ply )
@@ -246,4 +287,4 @@ roundend:defaultAccess( ULib.ACCESS_ADMIN )
 roundend:help( "Restart the round/End the current round." )
 
 
-print("ULX Jailbreak by Classified Version("..versionNumber..") has finished loading")
+print("ULX Jailbreak by Classified Version("..CurrentVersion..") has finished loading")
