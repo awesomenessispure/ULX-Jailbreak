@@ -1,10 +1,11 @@
 -- Script made by Classified
 -- Gamemode by Chessnut.
 
-print("ULX Jailbreak by Classified Version("..CurrentVersion..") is loading")
+
 
 local versioncheck = "";
 local CurrentVersion = "1.2.5"
+print("ULX Jailbreak by Classified Version("..CurrentVersion..") is loading")
 
 http.Fetch( "https://raw.githubusercontent.com/TheClassified/ULX-Jailbreak/master/versioncheck.txt",
 	function( body, len, headers, code )
