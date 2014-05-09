@@ -1,8 +1,7 @@
 -- Script made by Classified
 -- Gamemode by Chessnut.
 
-
-local CATEGORY_NAME = "Jailbreak"
+print("ULX Jailbreak by Classified Version("..CurrentVersion..") is loading")
 
 local versioncheck = "";
 local CurrentVersion = "1.2.5"
@@ -22,14 +21,14 @@ http.Fetch( "https://raw.githubusercontent.com/TheClassified/ULX-Jailbreak/maste
 	end
  );
 
+
 local WardenModel = Model("models/player/combine_super_soldier.mdl");
 local GuardModels = {
-    Model("models/player/police.mdl"),
+	Model("models/player/police.mdl"),
 	Model("models/player/combine_soldier.mdl"),
 	Model("models/player/combine_soldier_prisonguard.mdl")
 };
 
-print("ULX Jailbreak by Classified Version("..CurrentVersion..") is loading")
 
 --------------------------- Vote Demote -------------------------
 
@@ -277,6 +276,7 @@ function ulx.roundend( calling_ply )
 			number = "NOW!"
 		end
 		ULib.csay( _, "ROUND ENDS ".. tostring(number) )
+		print(tostring(number))
 	end)
 			GAMEMODE:EndRound()
 
@@ -288,3 +288,4 @@ roundend:help( "Restart the round/End the current round." )
 
 
 print("ULX Jailbreak by Classified Version("..CurrentVersion..") has finished loading")
+
